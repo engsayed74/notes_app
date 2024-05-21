@@ -5,17 +5,19 @@ class SimpleBlocObserver implements BlocObserver{
   @override
   void onChange(BlocBase bloc, Change change) {
 
-    debugPrint('change $change');
+    debugPrint('change =$change');
     // TODO: implement onChange
   }
 
   @override
   void onClose(BlocBase bloc) {
-    // TODO: implement onClose
+    debugPrint('close =$bloc');
+       // TODO: implement onClose
   }
 
   @override
   void onCreate(BlocBase bloc) {
+    debugPrint('create =$bloc');
     // TODO: implement onCreate
   }
 
