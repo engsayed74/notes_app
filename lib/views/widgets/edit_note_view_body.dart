@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notes_app/constants.dart';
+import 'package:notes_app/cubits/add_note_cubit/add_note_cubit.dart';
 import 'package:notes_app/cubits/notes_cubit/notes_cubit.dart';
 import 'package:notes_app/model/note_model.dart';
+import 'package:notes_app/views/widgets/colors_listview.dart';
 import 'package:notes_app/views/widgets/cusom_text_field.dart';
 import 'package:notes_app/views/widgets/custom_app_bar.dart';
+import 'package:notes_app/views/widgets/edit_note_colors_listview.dart';
 
 class EditNoteViewBody extends StatefulWidget {
   const EditNoteViewBody({super.key, required this.note});
@@ -14,7 +18,7 @@ class EditNoteViewBody extends StatefulWidget {
 }
 
 class _EditNoteViewBodyState extends State<EditNoteViewBody> {
-   String? title,content;
+  String? title, content;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -26,8 +30,8 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
           ),
           CustomAppBar(
             onPressed: () {
-              widget.note.title=title ?? widget.note.title;
-              widget.note.subtitle=content ?? widget.note.subtitle;
+              widget.note.title = title ?? widget.note.title;
+              widget.note.subtitle = content ?? widget.note.subtitle;
               widget.note.save();
               BlocProvider.of<NotesCubit>(context).fetchAllNotes();
               Navigator.pop(context);
@@ -38,22 +42,27 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
           const SizedBox(
             height: 50,
           ),
-           CustomTextField(
+          CustomTextField(
             hint: widget.note.title,
             onChanged: (value) {
-              title=value;
+              title = value;
             },
-            ),
+          ),
           const SizedBox(
             height: 16,
           ),
-           CustomTextField(
+          CustomTextField(
             onChanged: (value) {
-              content=value;
-              
+              content = value;
             },
             hint: widget.note.subtitle,
             maxLines: 5,
+          ),
+          const SizedBox(
+            height: 16,
+          ),
+          EditNoteColorList(
+            note: widget.note,
           ),
         ],
       ),
